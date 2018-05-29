@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="toilet">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>hello monitor</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+<!-- bower:js -->
+<script src="libs/jquery/dist/jquery.js"></script>
+<script src="libs/angular/angular.js"></script>
+<!-- endbower -->
+
+<!-- bower:css -->
+<!-- endbower -->
+
+
+	<script type="text/javascript" src="js/controller.js"></script>
+</head>
+<body ng-controller="parentCtrl">
+	<div class="wrap">
+		<header>
+			<p>智慧卫生间</p>
+			<p>引导及监测系统</p>
+		</header>
+		<div class="main" ng-app="toilet">
+			<div class="title-map">
+				监控区域地图导航
+			</div>
+
+			<div class="map-info" id="map" ng-controller="map_node">
+				
+					<div ng-repeat="node in nodes track by $index"  id={{node.id}} style="top:{{node.style.top}};left:{{node.style.top}}" ng-click="node_click($event)">
+						{{node.name}}
+					</div>
+				
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div>
+			<p>告警信息</p>
+			<!--<div id="notifyBox" class="notifyBox"> warnBox -->
+				<div id="warnBox" class="warnBox">
+					<div id="infoBox1"></div>
+					<div id="infoBox2"></div>
+				</div>
+		</div>
+		<div>
+			<p id="time"></p>
+
+		</div>
+	</footer>
+
+	<div id="detial" ng-controller="info_show">
+		<div id="title">
+			<div>{{location_title}}</div>
+			<div id="close" click='close()'></div>
+		</div>
+		<div class="context">
+			<div>
+				<table border="1">
+					<caption>检测指标实时值</caption>
+					<tr>
+						<th>监测项</th>
+						<th>男卫</th>
+						<th>女卫</th>
+					</tr>
+					<tbody id="tbody">
+						<tr ng-repeat="detc in detection track by $index">
+							<td>{{detc.name}}</td>
+							<td>{{detc.manValue}}</td>
+							<td>{{detc.womanValue}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+					<div class="woman" id="woman">
+						<div ng-repeat="node in woman track by $index"  ng-class="{'0':'style_empty','1':'style_occupi','2':'style_warn'}[{{node.type}}]">
+							<p>{{node.name}}类型{{node.type}}</p>
+						</div>
+					</div>
+					
+					
+				<!-- <hr> -->
+				<div class="man" id="man">
+					<div ng-repeat="node in man track by $index"  ng-class="{'0':'style_empty','1':'style_occupi','2':'style_warn'}[{{node.type}}]">
+						<p>{{node.name}}<br>类型{{node.type}}</p>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "node-first",
+  "description": "my bower monitor",
+  "main": "",
+  "authors": [
+    "zhang"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "angular": "^1.7.0",
+    "bootstrap": "^4.1.1"
+  },
+  "overrides": {  
+  	"bootstrap": {  
+	    "main": [  
+	      "./public/js/bootstrap.js",  
+	      "./public/css/bootstrap.css"
+	        ]  
+	    } 
+  }
+}
