@@ -30,7 +30,7 @@
 
 			<div class="map-info" id="map" ng-controller="map_node">
 				
-					<div ng-repeat="node in nodes track by $index"  id={{node.id}} style="top:{{node.style.top}};left:{{node.style.top}}" ng-click="node_click($event)">
+					<div ng-repeat="node in nodes track by $index"  id={{node.id}} style="background:{{node.style.background}};top:{{node.style.top}};left:{{node.style.top}}" ng-click="node_click($event)">
 						{{node.name}}
 					</div>
 				
@@ -51,7 +51,7 @@
 
 		</div>
 	</footer>
-
+<!--
 	<div id="detial" ng-controller="info_show">
 		<div id="title">
 			<div>{{location_title}}</div>
@@ -81,9 +81,6 @@
 							<p>{{node.name}}类型{{node.type}}</p>
 						</div>
 					</div>
-					
-					
-				<!-- <hr> -->
 				<div class="man" id="man">
 					<div ng-repeat="node in man track by $index"  ng-class="{'0':'style_empty','1':'style_occupi','2':'style_warn'}[{{node.type}}]">
 						<p>{{node.name}}<br>类型{{node.type}}</p>
@@ -93,7 +90,8 @@
 			
 		</div>
 	</div>
-
+-->
+	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

@@ -7,7 +7,6 @@ var showTime=function()
 		month:getTime.getMonth()+1+'月',
 		day:getTime.getDate()+'日&nbsp',
 		week:['星期日','星期一','星期二','星期三','星期四','星期五','星期六'].slice((getTime.getDay()),(getTime.getDay()+1)),
-
 		hour:(getTime.getHours()<10?'0'+getTime.getHours():getTime.getHours())+':',
 		minute:(getTime.getMinutes()<10?'0'+getTime.getMinutes():getTime.getMinutes())+':',
 		seconds:(getTime.getSeconds()<10?'0'+getTime.getSeconds():getTime.getSeconds())
@@ -83,6 +82,14 @@ var bind_evt=function(){
 	    close();
 	});
 }
+function ws(){
+	var myio=io();
+	var socket = myio.connect('ws://localhost:3000');       
+      	socket.on('news', function (data) {      
+        		console.log(data);   
+     	 }); 
+}
+ws();
 bind_evt();
-setInterval(showTime,1000);
-updateWarnInfo(warnInfo);
+//setInterval(showTime,1000);
+//updateWarnInfo(warnInfo);

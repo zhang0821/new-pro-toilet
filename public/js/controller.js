@@ -2,7 +2,8 @@
 	location_title:'九号楼二楼东侧',
 	style:{
 		"top":"100px",
-		"left":"30px"
+		"left":"30px",
+		"background":"green";
 	},
 	detection:{
 			"temp":
@@ -68,7 +69,8 @@
 	location_title:'九号楼二楼西侧',
 	style:{
 		"top":"400px",
-		"left":"100px"
+		"left":"100px",
+		"background":"yellow";
 	},
 	detection:{
 			"temp":
