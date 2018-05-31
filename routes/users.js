@@ -141,4 +141,10 @@ router.get('/monitor', function(req, res, next){
 router.get('/main', function(req, res, next){
   res.render('main');
 });
+router.get('/', function(req, res, next){
+  res.render('login',{msg:"欢迎登陆"});
+
+});
+
+
 module.exports = router;

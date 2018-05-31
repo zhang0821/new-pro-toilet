@@ -3,7 +3,7 @@
 	style:{
 		"top":"100px",
 		"left":"30px",
-		"background":"green";
+		"background":"green"
 	},
 	detection:{
 			"temp":
@@ -70,7 +70,7 @@
 	style:{
 		"top":"400px",
 		"left":"100px",
-		"background":"yellow";
+		"background":"yellow"
 	},
 	detection:{
 			"temp":

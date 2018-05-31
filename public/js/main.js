@@ -90,6 +90,6 @@ function ws(){
      	 }); 
 }
 ws();
-bind_evt();
+//bind_evt();
 //setInterval(showTime,1000);
 //updateWarnInfo(warnInfo);
