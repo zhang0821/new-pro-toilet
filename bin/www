@@ -8,6 +8,11 @@ var app = require('../app');
 var debug = require('debug')('node-first:server');
 var http = require('http');
 
+/*
+*引入postgre
+*/
+
+var pgdb=require('../pgsql/postgre');
 /**
  * Get port from environment and store in Express.
  */
@@ -15,19 +20,16 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '80');
 app.set('port', port);
 
+
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
 
+
 /**
  * Listen on provided port, on all network interfaces.
-
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
  */
 
 var server = http.createServer(app);
@@ -39,14 +41,23 @@ server.listen(port);
 */ 
 
 io.sockets.on('connection', function (socket) { 
-	io.sockets.emit('news',"你已经成果连接ws server");
-    /*setInterval(function(){
-      pgdb.getQueryResult(operatorStr,function(results){
-        if(globalInfo!=results){
-          io.sockets.emit('news',"this setinterval 's return"+results);
-        }
-      });
-    },10000);*/
+	  //io.sockets.emit('news',"你已经成果连接ws server");
+	socket.emit('news',"你已经成果连接ws server");
+	socket.on('pageRes',function(data){
+console.log("客户端返回的是时间数据"+data);
+/**/
+      if(data){
+        var resTime=new Date().getTime();
+console.log("第二次时间记录"+resTime);
+        var tbname='smoke_para',condition='\'111\'',values=resTime;
+        pgdb.getInserResult(tbname,condition,values,function(results){
+          if(results){
+            console.log("插入成功！");
+          }
+        });
+      }
+
+    });
 
 }); 
 
@@ -63,30 +74,46 @@ client.on('connect', function () {
 	client.subscribe('topics',{qos:2});
 });
 
+var mqtt_reicev_time=0;
+//该框架时间测试：收到的Mqtt的时间戳为一个数据的最初时间，nodejs发送到服务器再到服务器收到后返回再记录一次时间，渲染的时间单独计算（ajs框架的优势）
 client.on('message', function (topic, message) {
     switch(topic) {
         case 'topics':
-            console.log("this mqtt's info"+message.toString());
-	    //client.publish('nodejsTopics', 'this is  nodejs'+new Date().getTime());
-	    io.sockets.emit('news',"this mqtt's info"+message.toString());
+          var ssInfo;
+        	var message_sql='\'111\'';
+          var sql="select * from smoke_para a where a.dev_eui = "+message_sql+"limit 1";
+           pgdb.getQueryResult(sql,function(results){
+             if(results){
+              if(results.rowCount > 0){
+                  results.rows.forEach(function(item){
+              			ssInfo={
+                			'state':item['smoke_status'],
+                			'dev_eui':item['dev_eui']
+              			};
+                  });
+                }
+              console.log("www_"+JSON.stringify(ssInfo));
+              io.sockets.emit('news',ssInfo);
+               }
+             });
+
+
+ var resTime=new Date().getTime();
+        var tbname='smoke_para',condition='\'111\'',values=resTime;
+        pgdb.getInserResult(tbname,condition,values,function(results){
+          if(results){
+            console.log("插入成功！");
+          }
+        });
+
+
+
             break;
         case 'close':
             client.end();
             break;
 	}
  }); 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /**

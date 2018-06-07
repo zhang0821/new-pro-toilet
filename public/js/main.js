@@ -85,11 +85,35 @@ var bind_evt=function(){
 function ws(){
 	var myio=io();
 	var socket = myio.connect('ws://localhost:3000');       
-      	socket.on('news', function (data) {      
-        		console.log(data);   
+      	socket.on('news', function (data) {  
+			console.log("从数据库获得的json消息"+data.state);  
+			if(data.state==1){
+					console.log("改变颜色前"+toilet_data[0].style.background);
+					toilet_data[0].style.background="red";
+					var appElement = document.querySelector('[ng-controller=map_node]');
+					var $scope = angular.element(appElement).scope();
+					$scope.$apply(function () {
+					    $scope.nodes=toilet_data;
+					});
+			}
+   socket.emit('pageRes','2341');
+
+			//var info=JSON.parse(data);
+//console.log(info.state+"///"+info.dev_eui);
+/*
+			for(var item in info){
+				console.log(item+":"+info[item]);
+				
+			}
+*/
+        		  
      	 }); 
+
+	socket.emit('pageRes','1');
 }
 ws();
+
+
 //bind_evt();
 //setInterval(showTime,1000);
 //updateWarnInfo(warnInfo);

@@ -30,29 +30,34 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
+/*
+var pgdb=require("./pgsql/postgre");
+var globalInfo;
+var message='\'111\'';
+//var operatorStr="select * from smoke_para a where a.dev_eui = '++' ";
+var operatorStr="select * from smoke_para a where a.dev_eui = "+message;
+//var operatorStr='select * from smoke_para ';
+    setInterval(function(){
+      pgdb.getQueryResult(operatorStr,function(results){
+        if(globalInfo!=results){
+         
+if(results.rowCount > 0){
+                results.rows.forEach(function(item){
+                    var resultSet = 'id:' + item['id']+"smoke_status"+item['smoke_status']; 
+			console.log("appjs"+resultSet);
+
+
+                });
+            }
+
+        }
+      });
+    },10000);
+*/
+
+
 app.use('/', users);
 
-/*
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
-*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

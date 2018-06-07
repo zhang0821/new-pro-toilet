@@ -1,0 +1,12 @@
+{
+	"express": {
+		"port"     :3000
+	},
+	"postgres": {
+		"db"       : "loraserver",
+		"user"     : "postgres",
+		"port"     : "9999",
+		"password" : "dbpassword",
+		"host"     : "192.168.0.27"
+	}
+}
